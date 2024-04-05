@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\mvcTHUB\\thub\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{164330F3-D29A-4C6F-9EE9-E8B6E47F15C5}|tournamenthub\\tournamenthub.csproj|d:\\mvcthub\\thub\\tournamenthub\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{164330F3-D29A-4C6F-9EE9-E8B6E47F15C5}|tournamenthub\\tournamenthub.csproj|solutionrelative:tournamenthub\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\mvcTHUB\\thub\\tournamenthub\\Program.cs",
+              "RelativeDocumentMoniker": "tournamenthub\\Program.cs",
+              "ToolTip": "D:\\mvcTHUB\\thub\\tournamenthub\\Program.cs",
+              "RelativeToolTip": "tournamenthub\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-05T12:40:13.636Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
