@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using tournamenthub.Models;
+using thub.Models;
 
-namespace tournamenthub.Data
+namespace thub.DataAcess.Data
 {
     public class ApplicationDbContext : DbContext
     {

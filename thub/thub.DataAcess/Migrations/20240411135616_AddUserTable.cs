@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace tournamenthub.Migrations
+namespace thub.DataAcess.Migrations
 {
     /// <inheritdoc />
     public partial class AddUserTable : Migration

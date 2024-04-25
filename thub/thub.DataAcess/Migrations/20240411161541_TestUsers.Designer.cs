@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using tournamenthub.Data;
+using thub.DataAcess.Data;
 
 #nullable disable
 
-namespace tournamenthub.Migrations
+namespace thub.DataAcess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240411135616_AddUserTable")]
-    partial class AddUserTable
+    [Migration("20240411161541_TestUsers")]
+    partial class TestUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,10 @@ namespace tournamenthub.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +51,32 @@ namespace tournamenthub.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Email = "sergej.ajlec@gmail.com",
+                            LastName = "Ajlec",
+                            Name = "Sergej",
+                            Password = "test123"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Email = "dejan.ajlec@gmail.com",
+                            LastName = "Ajlec",
+                            Name = "Dejan",
+                            Password = "test123"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            Email = "samo.ajlec@gmail.com",
+                            LastName = "Ajlec",
+                            Name = "Samo",
+                            Password = "test123"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace tournamenthub.Migrations
+namespace thub.DataAcess.Migrations
 {
     /// <inheritdoc />
     public partial class TestUsers : Migration

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using tournamenthub.Models;
+using thub.Models;
 
-namespace tournamenthub.Controllers
+
+namespace tournamenthub.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,4 +1,4 @@
-namespace tournamenthub.Models
+namespace thub.Models
 {
     public class ErrorViewModel
     {
