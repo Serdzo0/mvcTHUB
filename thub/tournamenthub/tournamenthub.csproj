@@ -21,8 +21,4 @@
     <ProjectReference Include="..\thub.DataAcess\thub.DataAcess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

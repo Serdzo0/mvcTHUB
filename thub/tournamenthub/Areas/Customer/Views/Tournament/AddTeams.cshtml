@@ -1,0 +1,40 @@
+﻿@model TournamentModel
+
+<form method="post">
+	<input asp-for="TournamentId" hidden />
+	<input asp-for="Name" hidden />
+	<input asp-for="Sport" hidden />
+	<input asp-for="NumberOfTeams" hidden />
+	<input asp-for="NumberOfGroups" hidden />
+	<input asp-for="StartDate" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-dark">Add teams </h2>
+			<hr />
+		</div>
+		<div class="row pb-2">
+		<label asp-for="teams" class="p-0"></label>
+		@for(int i = 0; i<Model.NumberOfTeams; i++)
+		{
+			<div class="mb-3 row p-1">
+				<input asp-for="teams[i]" type="text" name="teams[@i]" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span> 
+			</div>
+		}
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<button type="submit" class="btn btn-dark ">Add Teams</button>
+			</div>
+			<div class="col-2">
+				<a asp-controller="Tournament" asp-action="Index" class="btn btn-secondary border ">Back</a>
+			</div>
+		</div>
+
+	</div>
+</form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

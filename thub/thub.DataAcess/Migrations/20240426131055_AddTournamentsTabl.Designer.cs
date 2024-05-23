@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using thub.DataAcess.Data;
 
@@ -11,9 +12,11 @@ using thub.DataAcess.Data;
 namespace thub.DataAcess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240426131055_AddTournamentsTabl")]
+    partial class AddTournamentsTabl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,41 @@ namespace thub.DataAcess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("thub.Models.TeamModel", b =>
+                {
+                    b.Property<int>("TeamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("TeamId");
+
+                    b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamId = 1,
+                            Name = "Fnatic"
+                        },
+                        new
+                        {
+                            TeamId = 2,
+                            Name = "G2"
+                        },
+                        new
+                        {
+                            TeamId = 3,
+                            Name = "Faze Clan"
+                        });
+                });
 
             modelBuilder.Entity("thub.Models.TournamentModel", b =>
                 {
@@ -48,9 +86,6 @@ namespace thub.DataAcess.Migrations
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
-
-                    b.Property<string>("teams")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TournamentId");
 

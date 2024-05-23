@@ -1,0 +1,40 @@
+﻿@model TournamentModel
+
+<form method="post">
+	<input asp-for="TournamentId" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-dark">Delete Tournament</h2>
+			<hr />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="Name" class="p-0"></label>
+			<input asp-for="Name" disabled class="form-control" />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="Sport" class="p-0"></label>
+			<input asp-for="Sport" disabled class="form-control" />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="NumberOfTeams" class="p-0"></label>
+			<input asp-for="NumberOfTeams" disabled class="form-control" />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="NumberOfGroups" class="p-0"></label>
+			<input asp-for="NumberOfGroups" disabled class="form-control" />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="StartDate" class="p-0"></label>
+			<input asp-for="StartDate" disabled class="form-control" />
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<button type="submit" class="btn btn-danger ">Delete</button>
+			</div>
+			<div class="col-2">
+				<a asp-controller="Tournament" asp-action="Index" class="btn btn-secondary border ">Back</a>
+			</div>
+		</div>
+
+	</div>
+</form>

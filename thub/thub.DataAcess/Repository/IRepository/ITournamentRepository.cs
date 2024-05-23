@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using thub.Models;
 
 namespace thub.DataAcess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface ITournamentRepository : IRepository<TournamentModel>
     {
-        IUserRepository User { get; }
-        ITournamentRepository Tournament { get; }
-        void Save();
+        void Update(TournamentModel user);
     }
 }

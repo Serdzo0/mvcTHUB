@@ -12,10 +12,12 @@ namespace thub.DataAcess.Repository
     {
         private ApplicationDbContext _db;
         public IUserRepository User { get; private set; }
+        public ITournamentRepository Tournament { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         { 
             _db = db;
             User = new UserRepository(_db);
+            Tournament = new TournamentRepository(_db);
         }
         
 
