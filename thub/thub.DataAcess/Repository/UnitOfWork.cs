@@ -8,22 +8,23 @@ using thub.DataAcess.Repository.IRepository;
 
 namespace thub.DataAcess.Repository
 {
-    public class UnitOfWork : IUnitOfWork
-    {
-        private ApplicationDbContext _db;
-        public IUserRepository User { get; private set; }
-        public ITournamentRepository Tournament { get; private set; }
-        public UnitOfWork(ApplicationDbContext db)
-        { 
-            _db = db;
-            User = new UserRepository(_db);
-            Tournament = new TournamentRepository(_db);
-        }
-        
+	public class UnitOfWork : IUnitOfWork
+	{
+		private ApplicationDbContext _db;
 
-        public void Save()
-        {
-            _db.SaveChanges();
-        }
-    }
+		public ITournamentRepository Tournament { get; private set; }
+		public IMatchRepository Match { get; private set; }
+		public UnitOfWork(ApplicationDbContext db)
+		{
+			_db = db;
+			Tournament = new TournamentRepository(_db);
+			Match = new MatchRepository(_db);
+		}
+
+
+		public void Save()
+		{
+			_db.SaveChanges();
+		}
+	}
 }

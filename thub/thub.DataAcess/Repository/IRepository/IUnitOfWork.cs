@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace thub.DataAcess.Repository.IRepository
 {
-    public interface IUnitOfWork
-    {
-        IUserRepository User { get; }
-        ITournamentRepository Tournament { get; }
-        void Save();
-    }
+	public interface IUnitOfWork
+	{
+		ITournamentRepository Tournament { get; }
+		IMatchRepository Match { get; }
+		void Save();
+	}
 }

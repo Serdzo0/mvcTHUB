@@ -7,8 +7,10 @@ using thub.Models;
 
 namespace thub.DataAcess.Repository.IRepository
 {
-    public interface IUserRepository : IRepository<UserModel>
-    {
-        void Update(UserModel user);
-    }
+
+	public interface IMatchRepository : IRepository<MatchModel>
+	{
+		void Update(MatchModel match);
+	}
+
 }

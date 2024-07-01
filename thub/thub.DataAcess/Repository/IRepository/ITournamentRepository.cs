@@ -9,6 +9,6 @@ namespace thub.DataAcess.Repository.IRepository
 {
     public interface ITournamentRepository : IRepository<TournamentModel>
     {
-        void Update(TournamentModel user);
+        void Update(TournamentModel tournament);
     }
 }
