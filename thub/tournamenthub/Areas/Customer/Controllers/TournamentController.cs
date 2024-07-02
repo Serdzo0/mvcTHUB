@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel;
-using thub.DataAcess.Data;
-using thub.DataAcess.Repository;
-using thub.DataAcess.Repository.IRepository;
 using thub.Models;
 using thub.Services;
 using thub.Services.IServices;
+using thub.Utility;
 
 
 namespace tournamenthub.Customer.Controllers
 {
     [Area("Customer")]
-    public class TournamentController : Controller
+	[Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin)]
+	public class TournamentController : Controller
     {
 		private readonly ITournamentService _tournamentService;
 
