@@ -1,0 +1,57 @@
+﻿@model TournamentModel
+
+<form method="post">
+	<input asp-for="TournamentId" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-dark">Edit Tournament</h2>
+			<hr />
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="Name" class="p-0"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="Sport" class="p-0"></label>
+			<input asp-for="Sport" class="form-control" />
+			<span asp-validation-for="Sport" class="text-danger"></span>
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="NumberOfTeams" class="p-0"></label>
+			<input asp-for="NumberOfTeams" class="form-control" />
+			<span asp-validation-for="NumberOfTeams" class="text-danger"></span>
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="NumberOfGroups" class="p-0"></label>
+			<input asp-for="NumberOfGroups" class="form-control" />
+			<span asp-validation-for="NumberOfGroups" class="text-danger"></span>
+		</div>
+		<div class="mb-3 row p-1">
+			<label asp-for="StartDate" class="p-0"></label>
+			<input asp-for="StartDate" class="form-control" />
+			<span asp-validation-for="StartDate" class="text-danger"></span>
+		</div>
+		@for (int i = 0; i < Model.NumberOfTeams; i++)
+		{
+			<div class="mb-3 row p-1">
+				<input asp-for="teams[i]" type="text" name="teams[@i]" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+		}
+		<div class="row">
+			<div class="col-2">
+				<button type="submit" class="btn btn-dark ">Update</button>
+			</div>
+			<div class="col-2">
+				<a asp-controller="Tournament" asp-action="Index" class="btn btn-secondary border ">Back</a>
+			</div>
+		</div>
+
+	</div>
+</form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

@@ -74,6 +74,31 @@ namespace tournamenthub.Customer.Controllers
 			}
 			return View(tournament);
 		}
+		public IActionResult EditTeams(int? id)
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			var tournament = _tournamentService.GetTournamentById(id.Value);
+			if (tournament == null)
+			{
+				return NotFound();
+			}
+			return View(tournament);
+		}
+
+		[HttpPost]
+		public IActionResult EditTeams(TournamentModel tournament)
+		{
+			if (ModelState.IsValid)
+			{
+				_tournamentService.UpdateTournament(tournament);
+				TempData["Success"] = "Tournament " + tournament.Name + " updated successfully";
+				return RedirectToAction("Index");
+			}
+			return View(tournament);
+		}
 
 		public IActionResult Delete(int? id)
 		{
@@ -128,14 +153,18 @@ namespace tournamenthub.Customer.Controllers
 			return View(tournament);
 		}
 
-		public IActionResult Info()
+		public IActionResult Info(int? id)
 		{
-			var tournamentList = _tournamentService.GetAllTournaments();
-			if (!tournamentList.Any())
+			if (id == null || id == 0)
 			{
-				TempData["Empty"] = "The list you're currently trying to display is empty!";
+				return NotFound();
 			}
-			return View(tournamentList);
+			var tournament = _tournamentService.GetTournamentById(id.Value);
+			if (tournament == null)
+			{
+				return NotFound();
+			}
+			return View(tournament);
 		}
 
 	}

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thub.Models", "thub.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thub.Utility", "thub.Utility\thub.Utility.csproj", "{E05806FB-2786-4C8B-BD39-43B3A7A7BBDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "thub.Services", "thub.Services\thub.Services.csproj", "{6DA112E2-8DB0-47FF-A772-398EB2D9A863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thub.Services", "thub.Services\thub.Services.csproj", "{6DA112E2-8DB0-47FF-A772-398EB2D9A863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

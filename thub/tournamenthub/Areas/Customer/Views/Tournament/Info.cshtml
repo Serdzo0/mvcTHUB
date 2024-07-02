@@ -1,4 +1,4 @@
-﻿@model List<TournamentModel>
+﻿@model TournamentModel
 
 <div class"containter">
 	<div class="row pt-4 pb-3">
@@ -36,39 +36,44 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var o in Model)
-			{
-				<tr>
-					<td>
-						@o.Name
-					</td>
-					<td>
-						@o.Sport
-					</td>
-					<td>
-						@o.NumberOfTeams
-					</td>
-					<td>
-						@o.NumberOfGroups
-					</td>
-					<td>
-						@o.StartDate
-					</td>
-					<td>
-					@foreach(var team in o.teams)
+
+			<tr>
+				<td>
+					@Model.Name
+				</td>
+				<td>
+					@Model.Sport
+				</td>
+				<td>
+					@Model.NumberOfTeams
+				</td>
+				<td>
+					@Model.NumberOfGroups
+				</td>
+				<td>
+					@Model.StartDate
+				</td>
+				<td>
+					@if (!(Model.teams == null))
 					{
+						@foreach (var team in Model.teams)
+						{
 							@team <br />
 
 							<br />
+						}
 					}
-					</td>
-				</tr>
-			}
+				</td>
+			</tr>
+			
 		</tbody>
 	</table>
 	<div class="row">
 		<div class="col-2">
 			<a asp-controller="Tournament" asp-action="Index" class="btn btn-secondary border ">Back</a>
+		</div>
+		<div class="col-2">
+			<a asp-controller="Tournament" asp-action="Index" class="btn btn-secondary border ">Create a bracket</a>
 		</div>
 	</div>
 </div>
