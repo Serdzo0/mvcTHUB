@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel;
@@ -9,17 +10,19 @@ using thub.Services.IServices;
 using thub.Utility;
 
 
+
 namespace tournamenthub.Customer.Controllers
 {
-    [Area("Customer")]
+	[Area("Customer")]
 	[Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin)]
 	public class TournamentController : Controller
-    {
+	{
 		private readonly ITournamentService _tournamentService;
-
-		public TournamentController(ITournamentService tournamentService)
+		private readonly UserManager<IdentityUser> _userManager;
+		public TournamentController(ITournamentService tournamentService, UserManager<IdentityUser> userManager)
 		{
 			_tournamentService = tournamentService;
+			_userManager = userManager;
 		}
 
 		public IActionResult Index()
@@ -38,13 +41,29 @@ namespace tournamenthub.Customer.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(TournamentModel tournament)
+		public async Task<IActionResult> Create(TournamentModel tournament)
 		{
 			if (ModelState.IsValid)
 			{
+				var user = await _userManager.GetUserAsync(User);
+				if (user == null)
+				{
+					TempData["Error"] = "Unable to create tournament. User is not authenticated.";
+					return View(tournament);
+				}
+				tournament.User = user;
 				_tournamentService.CreateTournament(tournament);
 				TempData["Success"] = "Tournament " + tournament.Name + " added successfully";
 				return RedirectToAction("Index");
+			}
+			else
+			{
+				// Log or debug output to confirm model state errors
+				Console.WriteLine("Model state is invalid.");
+				foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+				{
+					Console.WriteLine(error.ErrorMessage);
+				}
 			}
 			return View(tournament);
 		}

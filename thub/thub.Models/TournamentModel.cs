@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace thub.Models
 {
@@ -33,5 +34,6 @@ namespace thub.Models
         public DateOnly StartDate {  get; set; }
         [DisplayName("Add Teams")]
         public string[]? teams { get; set; } 
+        public IdentityUser? User { get; set; }
     }
 }

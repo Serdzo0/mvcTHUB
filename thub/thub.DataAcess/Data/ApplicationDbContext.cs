@@ -20,7 +20,10 @@ namespace thub.DataAcess.Data
 		{
 
 			base.OnModelCreating(modelBuilder);
-
+			modelBuilder.Entity<TournamentModel>()
+			.HasOne(t => t.User)
+			.WithMany()
+			.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<TournamentModel>().HasData(
 				new TournamentModel { TournamentId = 1, Name = "Mešane dvojice", Sport = "Beach Volleyball", NumberOfTeams = 8, NumberOfGroups = 2, StartDate = new DateOnly(2024, 5, 20) },
