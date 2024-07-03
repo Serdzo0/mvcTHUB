@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using thub.Utility;
 
 namespace tournamenthub.Areas.Identity.Pages.Account.Manage
 {
@@ -19,12 +20,12 @@ namespace tournamenthub.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMyEmailSender _emailSender;
 
         public EmailModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IEmailSender emailSender)
+            IMyEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -79,6 +80,10 @@ namespace tournamenthub.Areas.Identity.Pages.Account.Manage
             Email = email;
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            Input = new InputModel
+            {
+                NewEmail = email
+            };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -118,10 +123,15 @@ namespace tournamenthub.Areas.Identity.Pages.Account.Manage
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                var templateId = "d-ed2ca604354a458f96e7f980e17a32a1";
+                var dynamicTemplateData = new
+                {
+                    confirmation_url = HtmlEncoder.Default.Encode(callbackUrl),
+                    user_email = email
+                };
+
+                await _emailSender.SendEmailWithTemplateAsync(email, templateId, dynamicTemplateData);
 
                 StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();
@@ -154,10 +164,16 @@ namespace tournamenthub.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+
+            var templateId = "d-ed2ca604354a458f96e7f980e17a32a1";
+            var dynamicTemplateData = new
+            {
+                confirmation_url = HtmlEncoder.Default.Encode(callbackUrl),
+                user_email = email
+            };
+
+            await _emailSender.SendEmailWithTemplateAsync(email, templateId, dynamicTemplateData);
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();

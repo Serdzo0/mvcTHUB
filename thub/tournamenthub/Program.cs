@@ -9,6 +9,7 @@ using thub.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using thub.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using SendGrid.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -32,11 +33,16 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
+
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
-builder.Services.AddScoped<IEmailSender, EmailSender>();
-
+builder.Services.AddScoped<IMyEmailSender, EmailSender>();
+builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGridSettings"));
+builder.Services.AddSendGrid(options =>
+{
+    options.ApiKey = builder.Configuration.GetSection("SendGridSettings").GetValue<string>("ApiKey");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
