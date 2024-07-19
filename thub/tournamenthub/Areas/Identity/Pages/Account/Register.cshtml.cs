@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Shared;
 using thub.Utility;
 
 namespace tournamenthub.Areas.Identity.Pages.Account
@@ -158,21 +160,34 @@ namespace tournamenthub.Areas.Identity.Pages.Account
                     else
                     {
                         await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+
                     }
+                    var email = await _userManager.GetEmailAsync(user);
+                    Input.Email = email;
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.Email);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmailChange",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = userId, email = Input.Email, code = code },
+                        protocol: Request.Scheme);
+
+                    var templateId = "d-ed2ca604354a458f96e7f980e17a32a1";
+                    var dynamicTemplateData = new
+                    {
+                        confirmation_url = HtmlEncoder.Default.Encode(callbackUrl),
+                        user_email = email
+                    };
+
+                    await _emailSender.SendEmailWithTemplateAsync(email, templateId, dynamicTemplateData);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
 
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
-                    Input = new()
-                    {
-                        RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
-                        {
-                            Text = i,
-                            Value = i
-                        })
-
-                    };
                 }
             }
 
