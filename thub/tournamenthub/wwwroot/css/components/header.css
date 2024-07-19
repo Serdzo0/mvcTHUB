@@ -1,0 +1,14 @@
+﻿header .navbar-brand,
+header .navbar-brand:focus,
+header .navbar-brand:hover {
+    color: #fff;
+}
+
+header .nav-link {
+    color: #fff;
+}
+
+header .nav-link:focus,
+header .nav-link:hover {
+    color: #ff0000;
+}
