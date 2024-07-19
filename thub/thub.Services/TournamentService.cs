@@ -12,7 +12,6 @@ namespace thub.Services
 	public class TournamentService : ITournamentService
 	{
 		private readonly IUnitOfWork _unitOfWork;
-		private readonly UserManager<IdentityUser> _userManager;
 		public TournamentService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;

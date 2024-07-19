@@ -1,0 +1,64 @@
+﻿@model List<MatchModel>
+
+<div class"containter">
+	<div class="row pt-4 pb-3">
+		<div class="col-6">
+			<h2 class="text-primary">
+				TEAM LIST
+			</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Match" asp-action="Create" class="btn btn-dark"> <i class="bi bi-plus-square"></i> Create new Match</a>
+		</div>
+	</div>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					Date
+				</th>
+				<th>
+					Time
+				</th>
+				<th>
+					Team 1
+				</th>
+				<th>
+					Team 2
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var o in Model)
+			{
+				<tr>
+					<td>
+						@o.MatchDate
+					</td>
+					<td>
+						@o.MatchTime
+					</td>
+					<td>
+						@o.Team1
+					</td>
+					<td>
+						@o.Team2
+					</td>
+					<th>
+						@o.Tournament.Name
+					</th>
+
+					<td>
+						<div class="w-75 btn-group" role="group">
+
+							<a asp-controller="Match" asp-action="Delete" asp-route-id="@o.MatchId" class="btn btn-danger mx-2">
+								<i class="bi bi-trash"></i> Delete
+							</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>
