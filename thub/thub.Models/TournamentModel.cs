@@ -35,5 +35,6 @@ namespace thub.Models
         [DisplayName("Add Teams")]
         public string[]? teams { get; set; } 
         public IdentityUser? User { get; set; }
+        public string? userId { get; set; }
     }
 }

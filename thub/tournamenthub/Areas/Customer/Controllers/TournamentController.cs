@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using thub.Models;
 using thub.Services;
@@ -46,6 +47,7 @@ namespace tournamenthub.Customer.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = await _userManager.GetUserAsync(User);
+				var userId = user.Id;
 				if (user == null)
 				{
 					TempData["Error"] = "Unable to create tournament. User is not authenticated.";
@@ -185,6 +187,34 @@ namespace tournamenthub.Customer.Controllers
 			}
 			return View(tournament);
 		}
+		public IActionResult PrepareUserData()
+		{
+			var user = _userManager.GetUserAsync(User).Result;
+			TempData["User"] = JsonConvert.SerializeObject(user);
+			return RedirectToAction("CreatedByUser", "Tournament", new { area = "Customer" });
+		}
+		public IActionResult CreatedByUser(IdentityUser? userId)
+		{
+			var userJson = TempData["User"] as string;
+			if (userJson == null)
+			{
+				// Handle the case where the user data is not found
+				TempData["Empty"] = "User data not found!";
+				return View(new List<TournamentModel>());
+			}
 
+			var user = JsonConvert.DeserializeObject<IdentityUser>(userJson);
+			var tournamentList = _tournamentService.GetAllTournaments()
+												   .Where(tournament => tournament.userId == user.Id)
+												   .ToList();
+
+			if (!tournamentList.Any())
+			{
+				TempData["Empty"] = "The list you're currently trying to display is empty!";
+			}
+
+			return View(tournamentList); // Pass the filtered list to the view
+		}
 	}
 }
+
